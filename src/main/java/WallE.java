@@ -6,7 +6,7 @@ public class WallE {
         Scanner scanner = new Scanner(System.in);
 
         //Create 100 element String Array
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int curr = 0;
 
         //Greetings
@@ -21,12 +21,29 @@ public class WallE {
                 printWithLine("Bye. Hope to see you again soon!");
                 break;
             }
+            //Handle List input
             if (userInput.equalsIgnoreCase("list")) {
                 printTasks(tasks, curr);
+            //Handle mark input
+            } else if (userInput.startsWith("mark ")) {
+                String[] inputParts = userInput.split(" ");
+                int target = Integer.parseInt(inputParts[1]) - 1;
+                tasks[target].markAsDone();
+                printHorizontalLine();
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t" + tasks[target].toString());
+            //Handle unmark input
+            } else if (userInput.startsWith("unmark ")) {
+                String[] inputParts = userInput.split(" ");
+                int target = Integer.parseInt(inputParts[1]) - 1;
+                tasks[target].unmarkAsNotDone();
+                printHorizontalLine();
+                System.out.println("\tOK, I've marked this task as not done yet:");
+                System.out.println("\t" + tasks[target].toString());
             } else {
-                tasks[curr] = userInput;
+                tasks[curr] = new Task(userInput);
+                printWithLine("added: " + tasks[curr].toString());
                 curr++;
-                printWithLine("added: " + userInput);
             }
 
         }
@@ -49,13 +66,14 @@ public class WallE {
         System.out.println();
     }
 
-    private static void printTasks(String[] tasks, int curr){
+    private static void printTasks(Task[] tasks, int curr) {
         if (curr == 0) {
             printWithLine("No tasks found");
         } else {
             printHorizontalLine();
-            for (int i = 0; i < curr; i++){
-                System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 0; i < curr; i++) {
+                System.out.println("\t" + (i + 1) + "." + tasks[i].toString());
             }
             System.out.println();
             printHorizontalLine();
