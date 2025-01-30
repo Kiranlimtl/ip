@@ -33,11 +33,15 @@ public class WallE {
                     printHorizontalLine();
                     System.out.println("\tNice! I've marked this task as done:");
                     System.out.println("\t" + tasks[target].toString());
+                    System.out.println();
+                    printHorizontalLine();
                 } else {
                     tasks[target].unmarkAsNotDone();
                     printHorizontalLine();
                     System.out.println("\tOK, I've marked this task as not done yet:");
                     System.out.println("\t" + tasks[target].toString());
+                    System.out.println();
+                    printHorizontalLine();
                 }
                 //Handle Todo
             } else if (userInput.startsWith("todo ")) {
