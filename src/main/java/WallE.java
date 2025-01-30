@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WallE {
@@ -16,70 +17,21 @@ public class WallE {
         while (true) {
             String userInput = scanner.nextLine();
 
-            // Check if the user wants to exit
-            if (userInput.equalsIgnoreCase("bye")) {
+
+            if (userInput.isEmpty()) {
+                continue;
+                // Check if the user wants to exit
+            } else if (userInput.equalsIgnoreCase("bye")) {
                 printWithLine("Bye. Hope to see you again soon!");
                 break;
-            }
             //Handle List input
-            if (userInput.equalsIgnoreCase("list")) {
+            } else if (userInput.equalsIgnoreCase("list")) {
                 printTasks(tasks, curr);
             //Handle mark and umark input
             } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
-                String[] inputParts = userInput.split(" ");
-                int target = Integer.parseInt(inputParts[1]) - 1;
-                if (inputParts[0].equals("mark")) {
-                    tasks[target].markAsDone();
-                    printHorizontalLine();
-                    System.out.println("\tNice! I've marked this task as done:");
-                    System.out.println("\t" + tasks[target].toString());
-                    System.out.println();
-                    printHorizontalLine();
-                } else {
-                    tasks[target].unmarkAsNotDone();
-                    printHorizontalLine();
-                    System.out.println("\tOK, I've marked this task as not done yet:");
-                    System.out.println("\t" + tasks[target].toString());
-                    System.out.println();
-                    printHorizontalLine();
-                }
-                //Handle Todo
-            } else if (userInput.startsWith("todo ")) {
-                String description = userInput.substring(5);  // Remove "todo " prefix
-                tasks[curr] = new ToDo(description);
-                printAddedTask(tasks[curr], curr);
-                curr++;
-                //Handle deadline
-            } else if (userInput.startsWith("deadline ")) {
-                String[] parts = userInput.substring(9).split(" /by ");
-                if (parts.length == 2) {
-                    String description = parts[0];
-                    String by = parts[1];
-                    tasks[curr] = new Deadline(description, by);
-                    printAddedTask(tasks[curr], curr);
-                    curr++;
-                } else {
-                    System.out.println("\tWrong format loser");
-                }
-                //Handle event
-            } else if (userInput.startsWith("event ")) {
-                String[] parts = userInput.substring(6).split(" /from | /to ");
-                if (parts.length == 3) {
-                    String description = parts[0];
-                    String from = parts[1];
-                    String to = parts[2];
-                    tasks[curr] = new Event(description, from, to);
-                    printAddedTask(tasks[curr], curr);
-                    curr++;
-                } else {
-                    System.out.println("\tWrong format loser");
-                }
-            } else if (userInput.isEmpty()) {
-                continue;
+                handleMarkAndUnmarkedTask(tasks, userInput);
             } else {
-                tasks[curr] = new Task(userInput);
-                printWithLine("added: " + tasks[curr].toString());
-                curr++;
+                curr = handleAddedTask(tasks, curr, userInput);
             }
 
         }
@@ -125,5 +77,67 @@ public class WallE {
         printHorizontalLine();
     }
 
+
+    private static void handleMarkAndUnmarkedTask(Task[] tasks, String userInput) {
+        String[] inputParts = userInput.split(" ");
+        int target = Integer.parseInt(inputParts[1]) - 1;
+        if (inputParts[0].equals("mark")) {
+            tasks[target].markAsDone();
+            printHorizontalLine();
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t" + tasks[target].toString());
+            System.out.println();
+            printHorizontalLine();
+        } else {
+            tasks[target].unmarkAsNotDone();
+            printHorizontalLine();
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t" + tasks[target].toString());
+            System.out.println();
+            printHorizontalLine();
+        }
+    }
+    private static int handleAddedTask(Task[] tasks, int curr, String userInput){
+        if (userInput.startsWith("todo ")) {
+            String description = userInput.substring(5);
+            tasks[curr] = new ToDo(description);
+            printAddedTask(tasks[curr], curr);
+            curr++;
+            return curr;
+            //Handle deadline
+        } else if (userInput.startsWith("deadline ")) {
+            String[] parts = userInput.substring(9).split(" /by ");
+            if (parts.length == 2) {
+                String description = parts[0];
+                String by = parts[1];
+                tasks[curr] = new Deadline(description, by);
+                printAddedTask(tasks[curr], curr);
+                curr++;
+                return curr;
+            } else {
+                System.out.println("\tWrong format loser");
+            }
+            //Handle event
+        } else if (userInput.startsWith("event ")) {
+            String[] parts = userInput.substring(6).split(" /from | /to ");
+            if (parts.length == 3) {
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks[curr] = new Event(description, from, to);
+                printAddedTask(tasks[curr], curr);
+                curr++;
+                return curr;
+            } else {
+                System.out.println("\tWrong format loser");
+            }
+        } else {
+            tasks[curr] = new Task(userInput);
+            printWithLine("added: " + tasks[curr].toString());
+            curr++;
+            return curr;
+        }
+        return curr;
+    }
 
 }
