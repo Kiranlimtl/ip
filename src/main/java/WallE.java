@@ -99,7 +99,6 @@ public class WallE {
         System.out.println("\t" + input);
         System.out.println();
         printHorizontalLine();
-        System.out.println();
     }
 
     private static void printTasks(Task[] tasks, int curr) {
