@@ -28,7 +28,7 @@ public class WallE {
             } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
                 String[] inputParts = userInput.split(" ");
                 int target = Integer.parseInt(inputParts[1]) - 1;
-                if (inputParts[0] == "mark") {
+                if (inputParts[0].equals("mark")) {
                     tasks[target].markAsDone();
                     printHorizontalLine();
                     System.out.println("\tNice! I've marked this task as done:");
@@ -39,6 +39,39 @@ public class WallE {
                     System.out.println("\tOK, I've marked this task as not done yet:");
                     System.out.println("\t" + tasks[target].toString());
                 }
+                //Handle Todo
+            } else if (userInput.startsWith("todo ")) {
+                String description = userInput.substring(5);  // Remove "todo " prefix
+                tasks[curr] = new ToDo(description);
+                printAddedTask(tasks[curr], curr);
+                curr++;
+                //Handle deadline
+            } else if (userInput.startsWith("deadline ")) {
+                String[] parts = userInput.substring(9).split(" /by ");
+                if (parts.length == 2) {
+                    String description = parts[0];
+                    String by = parts[1];
+                    tasks[curr] = new Deadline(description, by);
+                    printAddedTask(tasks[curr], curr);
+                    curr++;
+                } else {
+                    System.out.println("\tWrong format loser");
+                }
+                //Handle event
+            } else if (userInput.startsWith("event ")) {
+                String[] parts = userInput.substring(6).split(" /from | /to ");
+                if (parts.length == 3) {
+                    String description = parts[0];
+                    String from = parts[1];
+                    String to = parts[2];
+                    tasks[curr] = new Event(description, from, to);
+                    printAddedTask(tasks[curr], curr);
+                    curr++;
+                } else {
+                    System.out.println("\tWrong format loser");
+                }
+            } else if (userInput.isEmpty()) {
+                continue;
             } else {
                 tasks[curr] = new Task(userInput);
                 printWithLine("added: " + tasks[curr].toString());
@@ -78,6 +111,15 @@ public class WallE {
             printHorizontalLine();
         }
 
+    }
+
+    private static void printAddedTask(Task task, int curr){
+        printHorizontalLine();
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t  " + task.toString());
+        System.out.println("\tNow you have " + curr + " tasks in the list.");
+        System.out.println();
+        printHorizontalLine();
     }
 
 
