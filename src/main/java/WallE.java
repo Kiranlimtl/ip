@@ -24,22 +24,21 @@ public class WallE {
             //Handle List input
             if (userInput.equalsIgnoreCase("list")) {
                 printTasks(tasks, curr);
-            //Handle mark input
-            } else if (userInput.startsWith("mark ")) {
+            //Handle mark and umark input
+            } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
                 String[] inputParts = userInput.split(" ");
                 int target = Integer.parseInt(inputParts[1]) - 1;
-                tasks[target].markAsDone();
-                printHorizontalLine();
-                System.out.println("\tNice! I've marked this task as done:");
-                System.out.println("\t" + tasks[target].toString());
-            //Handle unmark input
-            } else if (userInput.startsWith("unmark ")) {
-                String[] inputParts = userInput.split(" ");
-                int target = Integer.parseInt(inputParts[1]) - 1;
-                tasks[target].unmarkAsNotDone();
-                printHorizontalLine();
-                System.out.println("\tOK, I've marked this task as not done yet:");
-                System.out.println("\t" + tasks[target].toString());
+                if (inputParts[0] == "mark") {
+                    tasks[target].markAsDone();
+                    printHorizontalLine();
+                    System.out.println("\tNice! I've marked this task as done:");
+                    System.out.println("\t" + tasks[target].toString());
+                } else {
+                    tasks[target].unmarkAsNotDone();
+                    printHorizontalLine();
+                    System.out.println("\tOK, I've marked this task as not done yet:");
+                    System.out.println("\t" + tasks[target].toString());
+                }
             } else {
                 tasks[curr] = new Task(userInput);
                 printWithLine("added: " + tasks[curr].toString());
