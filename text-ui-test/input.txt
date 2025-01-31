@@ -19,3 +19,6 @@ event
 event run /by
 todo
 deadline now /from
+list
+bye
+
