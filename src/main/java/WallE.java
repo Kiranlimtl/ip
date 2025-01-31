@@ -1,12 +1,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class WallE {
+    private static final String FILE_PATH = "./data/walle.txt";
+    private static  Storage storage;
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        storage = new Storage(FILE_PATH);
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        int curr = 0;
+        try {
+            tasks = storage.loadTasks();
+        } catch (CorruptedDataException e) {
+            printWithLine(e.getMessage());
+            return;
+        } catch (IOException e) {
+            printWithLine("I/O error: " + e.getMessage());
+            return;
+        }
 
         printWithLine("Hello! I'm WallE.\n" +
                 "\tWhat can I do for you?");
@@ -26,21 +38,30 @@ public class WallE {
             try {
                 Command command = Command.fromString(userInput);
                 switch (command) {
-                    case LIST:
-                        printTasks(tasks);
-                        break;
-                    case MARK:
-                    case UNMARK:
-                        handleMarkAndUnmarkedTask(tasks, userInput);
-                        break;
-                    case DELETE:
-                        deleteTask(tasks, userInput);
-                        break;
-                    default:
-                        handleAddedTask(tasks, userInput);
-                        break;
+                case LIST:
+                    printTasks(tasks);
+                    break;
+                case MARK:
+                case UNMARK:
+                    handleMarkAndUnmarkedTask(tasks, userInput);
+                    storage.saveTasks(tasks);
+                    break;
+                case DELETE:
+                    deleteTask(tasks, userInput);
+                    storage.saveTasks(tasks);
+                    break;
+                case TODO:
+                case EVENT:
+                case DEADLINE:
+                    handleAddedTask(tasks, userInput);
+                    storage.saveTasks(tasks);
+                    break;
+                default:
+                    printWithLine("Invalid task type lololol!!!");
+                    break;
                 }
-            } catch (WallException e) {
+
+            } catch (WallException | IOException e) {
                 printWithLine("OOPS WallE_rror!!!! " + e.getMessage());
             }
 
@@ -139,7 +160,7 @@ public class WallE {
                 tasks.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
                 break;
             default:
-                tasks.add(new Task(userInput));
+                break;
         }
 
         printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
