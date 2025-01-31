@@ -3,24 +3,19 @@ import java.util.Scanner;
 
 public class WallE {
     public static void main(String[] args) {
-        //Create new scanner
         Scanner scanner = new Scanner(System.in);
 
-        //Create 100 element String Array
         ArrayList<Task> tasks = new ArrayList<Task>();
         int curr = 0;
 
-        //Greetings
         printWithLine("Hello! I'm WallE.\n" +
                 "\tWhat can I do for you?");
 
-        while (true) {
+        while (scanner.hasNextLine()) {
             String userInput = scanner.nextLine();
-
-
             if (userInput.isEmpty()) {
                 printWithLine("Write something pls!");
-                continue;  // Skip empty input
+                continue;
             }
 
             if (userInput.equalsIgnoreCase("bye")) {
@@ -29,38 +24,41 @@ public class WallE {
             }
 
             try {
-                if (userInput.equalsIgnoreCase("list")) {
-                    printTasks(tasks);
-                } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-                    handleMarkAndUnmarkedTask(tasks, userInput);
-                } else if (userInput.startsWith("delete")){
-                    deleteTask(tasks, userInput);
-                } else {
-                    handleAddedTask(tasks, userInput);
+                Command command = Command.fromString(userInput);
+                switch (command) {
+                    case LIST:
+                        printTasks(tasks);
+                        break;
+                    case MARK:
+                    case UNMARK:
+                        handleMarkAndUnmarkedTask(tasks, userInput);
+                        break;
+                    case DELETE:
+                        deleteTask(tasks, userInput);
+                        break;
+                    default:
+                        handleAddedTask(tasks, userInput);
+                        break;
                 }
             } catch (WallException e) {
                 printWithLine("OOPS WallE_rror!!!! " + e.getMessage());
             }
 
         }
-
-        //Close the scanner
         scanner.close();
     }
 
-    //Method to print horizontal line
+
     private static void printHorizontalLine(){
         System.out.println("\t--------------------------------------------------");
     }
 
-    //Method to print other stuff with line
     private static void printWithLine(String input){
         printHorizontalLine();
         System.out.println("\t" + input);
         System.out.println();
         printHorizontalLine();
     }
-
     private static void printTasks(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
             printWithLine("No tasks found");
@@ -75,7 +73,6 @@ public class WallE {
         }
 
     }
-
     private static void printAddedTask(Task task, int curr){
         printHorizontalLine();
         System.out.println("\tGot it. I've added this task:");
@@ -84,101 +81,70 @@ public class WallE {
         System.out.println();
         printHorizontalLine();
     }
-
-
     private static void handleMarkAndUnmarkedTask(ArrayList<Task> tasks, String userInput) throws WallException {
-        if (userInput.startsWith("mark")) {
-            if (userInput.length() <= 5) {
-                throw new WallException("What do you want to mark huh?");
-            }
-            int target;
-            String[] parts = userInput.substring(5).split(" ");
-            try {
-                target = Integer.parseInt(parts[0]) - 1;
-            } catch (NumberFormatException e) {
-                throw new WallException("Invalid task number. Please enter a valid number.");
-            }
-            if (target >= tasks.size()) {
-                throw new WallException("You know that is not even in the list");
-            } else if (target < 0 || tasks.get(target) == null || parts.length > 1) {
-                throw new WallException("Invalid task number. No such task exists.");
-            }
-            tasks.get(target).markAsDone();
-            printHorizontalLine();
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t" + tasks.get(target).toString());
-            System.out.println();
-            printHorizontalLine();
-        } else if (userInput.startsWith("unmark")) {
-            if (userInput.length() <= 7) {
-                throw new WallException("What do you want to unmark huh?");
-            }
-            int target;
-            String[] parts = userInput.substring(7).split(" ");
-            try {
-                target = Integer.parseInt(parts[0]) - 1;
-            } catch (NumberFormatException e) {
-                throw new WallException("Invalid task number. Please enter a valid number.");
-            }
-            if (target >= tasks.size()) {
-                throw new WallException("You know that is not even in the list");
-            } else if (target < 0 || tasks.get(target) == null || parts.length > 1) {
-                throw new WallException("Invalid task number. No such task exists.");
-            }
-            tasks.get(target).unmarkAsNotDone();
-            printHorizontalLine();
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t" + tasks.get(target).toString());
-            System.out.println();
-            printHorizontalLine();
+        Command command = Command.fromString(userInput);
+        String commandKeyword = command == Command.MARK ? "mark" : "unmark";
+        if (userInput.length() == commandKeyword.length() || userInput.substring(commandKeyword.length()).trim().isEmpty()) {
+            throw new WallException("What do you want to " + (commandKeyword) + " huh?");
+        }
+        String afterCommand = (command == Command.MARK) ? userInput.substring(5).trim() : userInput.substring(7).trim();
+
+        int target;
+        String[] parts = afterCommand.split(" ");
+        try {
+            target = Integer.parseInt(parts[0]) - 1;
+        } catch (NumberFormatException e) {
+            throw new WallException("Invalid task number. Please enter a valid number.");
         }
 
+        if (target < 0 || target >= tasks.size()) {
+            throw new WallException("You know that is not even in the list.");
+        } else if (parts.length > 1) {
+            throw new WallException("I can only " + (commandKeyword) + " one thing and you know it!!");
+        }
 
-    }
+        switch (command) {
+            case MARK:
+                tasks.get(target).markAsDone();
+                System.out.println("\tNice! I've marked this task as done:\n\t" + tasks.get(target));
+                break;
+            case UNMARK:
+                tasks.get(target).unmarkAsNotDone();
+                System.out.println("\tOK, I've marked this task as not done yet:\n\t" + tasks.get(target));
+                break;
+            default:
+                throw new WallException("Invalid command.");
+        }
+        System.out.println();
+        printHorizontalLine();
+
+        }
     private static void handleAddedTask(ArrayList<Task> tasks, String userInput) throws WallException {
-        if (userInput.startsWith("todo")) {
-            if (userInput.length() <= 5) {  // Input length is too short
-                throw new WallException("Todo what huh?");
-            }
-            String description = userInput.substring(5);
-            if (description.isEmpty()) {
-                throw new WallException("Write something lol.");
-            }
-            tasks.add(new ToDo(description));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
-            //Handle deadline
-        } else if (userInput.startsWith("deadline")) {
-            if (userInput.length() <= 9) {  // Input length is too short
-                throw new WallException("deadline what huh?");
-            }
-            String[] parts = userInput.substring(9).split(" /by ");
-            if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                throw new WallException("Invalid deadline format. Use: deadline [description] /by [time]");
-            }
-            String description = parts[0].trim();
-            String by = parts[1].trim();
-            tasks.add(new Deadline(description, by));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
-            //Handle event
-        } else if (userInput.startsWith("event")) {
-            if (userInput.length() <= 6) {  // Input length is too short
-                throw new WallException("what event huh?");
-            }
-            String[] parts = userInput.substring(6).split(" /from | /to ");
-            if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[1].trim().isEmpty()) {
-                throw new WallException("Invalid event format. Use: event [description] /from [time] /to [time]");
-            }
-            String description = parts[0].trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
-            tasks.add(new Event(description, from, to));
-            printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
-        } else {
-            tasks.add(new Task(userInput));
-            printWithLine("added: " + tasks.get(tasks.size() - 1).toString());
+        Command command = Command.fromString(userInput);
+        switch (command) {
+            case TODO:
+                if (userInput.length() <= 5) throw new WallException("Todo what?");
+                tasks.add(new ToDo(userInput.substring(5).trim()));
+                break;
+            case DEADLINE:
+                if (userInput.length() <= 9) throw new WallException("Deadline? Cmon.");
+                String[] deadlineParts = userInput.substring(9).split(" /by ");
+                if (deadlineParts.length != 2) throw new WallException("Invalid deadline format.");
+                tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                break;
+            case EVENT:
+                if (userInput.length() <= 6) throw new WallException("Event? Pls?");
+                String[] eventParts = userInput.substring(6).split(" /from | /to ");
+                if (eventParts.length != 3) throw new WallException("Invalid event format.");
+                tasks.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
+                break;
+            default:
+                tasks.add(new Task(userInput));
         }
-    }
 
+        printAddedTask(tasks.get(tasks.size() - 1), tasks.size());
+
+    }
     private static void deleteTask(ArrayList<Task> tasks, String userInput) throws WallException{
         if (userInput.length() <= 7) {
             throw new WallException("Idk what you want me delete bruh!");
@@ -205,8 +171,30 @@ public class WallE {
     }
 }
 
+/**
+ * Exception for WallE
+ */
 class WallException extends Exception {
     WallException(String message) {
         super(message);
+    }
+}
+
+/**
+ * Enumeration for the different cases
+ */
+enum Command {
+    TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, INVALID;
+
+    // Helper to determine the command type from user input
+    public static Command fromString(String input) {
+        if (input.startsWith("todo")) return TODO;
+        if (input.startsWith("deadline")) return DEADLINE;
+        if (input.startsWith("event")) return EVENT;
+        if (input.startsWith("mark")) return MARK;
+        if (input.startsWith("unmark")) return UNMARK;
+        if (input.startsWith("delete")) return DELETE;
+        if (input.equalsIgnoreCase("list")) return LIST;
+        return INVALID;
     }
 }
