@@ -1,25 +1,9 @@
-read a book
-todo run
-deadline shopping /by now
-event swim /from now /to tmr
-mark 1
-mark 2
-mark 3
-mark 4
-unmark 1
-unmark 2
-unmark 3
-unmark 4
-list
-mark
-unmark
-mark
-unmark
-event
-event run /by
-todo
-deadline now /from
-list
-list
-bye
+deadline Submit report /by 25/12/2023 2359
+deadline Submit report /by 25/12/2023 23:59
+deadline Submit report /by 25/12/2023 23
+deadline Submit report /by 25-12-2023 2359
+deadline Submit report /by 25-12-2023 23:59
+deadline Submit report /by 25-12-2023 23
+deadline Submit report /by 2023-12-25 23:59
 
+list
