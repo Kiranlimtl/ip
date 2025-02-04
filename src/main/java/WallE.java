@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
 
 public class WallE {
     private static final String FILE_PATH = "./data/walle.txt";
@@ -154,12 +152,17 @@ public class WallE {
                 if (userInput.length() <= 9) throw new WallException("Deadline? Cmon.");
                 String[] deadlineParts = userInput.substring(9).split(" /by ");
                 if (deadlineParts.length != 2) throw new WallException("Invalid deadline format.");
+                LocalDateTime by = DateTimeUtility.parseDateTime(deadlineParts[1].trim());
+                if (by == null) throw new WallException("Invalid date time format.");
                 tasks.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
                 break;
             case EVENT:
                 if (userInput.length() <= 6) throw new WallException("Event? Pls?");
                 String[] eventParts = userInput.substring(6).split(" /from | /to ");
                 if (eventParts.length != 3) throw new WallException("Invalid event format.");
+                LocalDateTime from = DateTimeUtility.parseDateTime(eventParts[1].trim());
+                LocalDateTime to = DateTimeUtility.parseDateTime(eventParts[2].trim());
+                if (from == null || to == null) throw new WallException("Invalid date time format.");
                 tasks.add(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
                 break;
             default:
