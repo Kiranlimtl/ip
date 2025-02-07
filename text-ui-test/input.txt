@@ -1,3 +1,8 @@
+todo sex
+list
+mark 1
+unmark 1
+list
 deadline Submit report /by 25/12/2023 2359
 deadline Submit report /by 25/12/2023 23:59
 deadline Submit report /by 25/12/2023 23
@@ -5,5 +10,11 @@ deadline Submit report /by 25-12-2023 2359
 deadline Submit report /by 25-12-2023 23:59
 deadline Submit report /by 25-12-2023 23
 deadline Submit report /by 2023-12-25 23:59
-
 list
+delete 1
+delete 1
+delete 1
+
+delete 7
+
+bye
