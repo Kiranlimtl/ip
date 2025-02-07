@@ -16,14 +16,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> loadTasks() throws CorruptedDataException, IOException {
+    public TaskList loadTasks() throws CorruptedDataException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             file.createNewFile();
-            return tasks;
+            return new TaskList(tasks);
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -32,11 +32,12 @@ public class Storage {
                 tasks.add(parseTask(line));
         }
         reader.close();
-        return tasks;
+        return new TaskList(tasks);
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        ArrayList<Task> tasks = taskList.getTasks();
         for (Task task : tasks) {
             writer.write(formatTask(task));
             writer.newLine();
