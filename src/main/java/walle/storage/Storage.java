@@ -1,3 +1,12 @@
+package walle.storage;
+
+import walle.tasks.Task;
+import walle.tasks.TaskList;
+import walle.tasks.ToDo;
+import walle.tasks.Deadline;
+import walle.tasks.Event;
+import walle.exceptions.CorruptedDataException;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -106,26 +115,17 @@ public class Storage {
     private String formatTask(Task task) {
         StringBuilder sb = new StringBuilder();
         if (task instanceof ToDo) {
-            sb.append("T | ").append(task.isDone ? "1" : "0").append(" | ").append(task.description);
+            sb.append("T | ").append(task.isDone() ? "1" : "0").append(" | ").append(task.getDescription());
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            sb.append("D | ").append(deadline.isDone ? "1" : "0").append(" | ").append(deadline.description)
-                    .append(" | ").append(deadline.by);
+            sb.append("D | ").append(deadline.isDone() ? "1" : "0").append(" | ").append(deadline.getDescription())
+                    .append(" | ").append(deadline.getBy());
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            sb.append("E | ").append(event.isDone ? "1" : "0").append(" | ").append(event.description)
-                    .append(" | ").append(event.from).append("-").append(event.to);
+            sb.append("E | ").append(event.isDone() ? "1" : "0").append(" | ").append(event.getDescription())
+                    .append(" | ").append(event.getFrom()).append("-").append(event.getTo());
         }
         return sb.toString();
     }
 
-}
-
-/**
- * Exception for Storage class
- */
-class CorruptedDataException extends Exception {
-    public CorruptedDataException(String message) {
-        super("Corrupted task data: " + message);
-    }
 }
