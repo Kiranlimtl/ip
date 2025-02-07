@@ -1,5 +1,3 @@
-package walle.tasks;
-
 /**
  * Class to handle task given by user
  */
@@ -15,16 +13,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
-
 
     /**
      * Mark the task as done

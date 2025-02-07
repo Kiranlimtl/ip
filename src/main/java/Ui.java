@@ -1,8 +1,3 @@
-package walle.ui;
-
-import walle.tasks.Task;
-import walle.tasks.TaskList;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 

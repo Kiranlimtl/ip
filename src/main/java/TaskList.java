@@ -1,5 +1,3 @@
-package walle.tasks;
-
 import java.util.ArrayList;
 
 /**

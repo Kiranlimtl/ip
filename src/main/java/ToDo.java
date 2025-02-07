@@ -1,5 +1,3 @@
-package walle.tasks;
-
 /**
  * Todo class, subclass of Task
  */

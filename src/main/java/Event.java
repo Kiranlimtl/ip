@@ -1,7 +1,3 @@
-package walle.tasks;
-
-import walle.parsers.DateTimeUtility;
-
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 /**
@@ -24,21 +20,6 @@ public class Event extends Task {
         this.to = DateTimeUtility.parseDateTime(to);
     }
 
-    /**
-     * Getter for from
-     * @return
-     */
-    public LocalDateTime getFrom() {
-        return from;
-    }
-
-    /**
-     * Getter for to
-     * @return
-     */
-    public LocalDateTime getTo() {
-        return to;
-    }
 
     /**
      * String representation of Event instance
