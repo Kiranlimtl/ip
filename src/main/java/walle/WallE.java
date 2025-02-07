@@ -1,3 +1,14 @@
+package walle;
+
+import walle.commands.Command;
+import walle.storage.Storage;
+import walle.tasks.TaskList;
+import walle.tasks.Task;
+import walle.exceptions.WallException;
+import walle.exceptions.CorruptedDataException;
+import walle.ui.Ui;
+import walle.parsers.Parser;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;

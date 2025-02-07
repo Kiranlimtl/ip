@@ -1,3 +1,7 @@
+package walle.tasks;
+
+import walle.parsers.DateTimeUtility;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -20,6 +24,13 @@ public class Deadline extends Task {
         this.by = DateTimeUtility.parseDateTime(by);
     }
 
+    /**
+     * Returns the by attribute of Deadline instance
+     * @return
+     */
+    public LocalDateTime getBy() {
+        return by;
+    }
     /**
      * String representation of Deadline instance
      * @return
