@@ -17,4 +17,10 @@ delete 1
 
 delete 7
 
+delete 1
+
+delete 1
+
+mark 1
+
 bye
