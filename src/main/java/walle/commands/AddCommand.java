@@ -12,15 +12,32 @@ import walle.parsers.DateTimeUtility;
 import java.time.LocalDateTime;
 import java.io.IOException;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
     private final String argument;
     private final String taskType;
 
+    /** Creates a new AddCommand object with the given argument and task type.
+     *
+     * @param argument
+     * @param taskType
+     */
      public AddCommand(String argument, String taskType) {
          this.argument = argument;
          this.taskType = taskType;
      }
 
+     /**
+      * Executes the add command.
+      *
+      * @param taskList The task list to add the task to.
+      * @param ui The user interface to print messages.
+      * @param storage The storage to save the task list.
+      * @throws WallException If the task type is invalid or the argument is invalid.
+      * @throws IOException If there is an error saving the task list.
+      */
      public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
          switch (taskType.toLowerCase()) {
              case "todo":

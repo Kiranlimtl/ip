@@ -3,9 +3,11 @@ package walle.commands;
 import walle.storage.Storage;
 import walle.tasks.TaskList;
 import walle.tasks.Task;
-import walle.exceptions.WallException;
 import walle.ui.Ui;
 
+/**
+ * Represents a delete command
+ */
 public class DeleteCommand extends Command {
     private int index;
 
@@ -21,7 +23,7 @@ public class DeleteCommand extends Command {
     /**
      * Executes the delete command
      *
-     * @param tasks
+     * @param taskList
      * @param ui
      * @param storage
      */
