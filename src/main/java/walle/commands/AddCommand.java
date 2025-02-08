@@ -2,7 +2,6 @@ package walle.commands;
 
 import walle.storage.Storage;
 import walle.tasks.TaskList;
-import walle.tasks.Task;
 import walle.tasks.ToDo;
 import walle.tasks.Deadline;
 import walle.tasks.Event;
@@ -34,7 +33,7 @@ public class AddCommand extends Command {
              case "deadline":
                  if (argument.length() <= 0) throw new WallException("Deadline? Cmon.");
                  String[] deadlineParts = argument.split(" /by ");
-                 if (deadlineParts.length != 2) throw new WallException("Invalid deadline format.");
+                 if (deadlineParts.length != 2) throw new WallException("Invalid deadline format for deadline.");
                  LocalDateTime by = DateTimeUtility.parseDateTime(deadlineParts[1].trim());
                  if (by == null) throw new WallException("Invalid date time format.");
                  Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
@@ -44,11 +43,11 @@ public class AddCommand extends Command {
                  break;
              case "event":
                  if (argument.length() <= 0) throw new WallException("Event? Pls?");
-                 String[] eventParts = argument.substring(6).split(" /from | /to ");
+                 String[] eventParts = argument.split(" /from | /to ");
                  if (eventParts.length != 3) throw new WallException("Invalid event format.");
                  LocalDateTime from = DateTimeUtility.parseDateTime(eventParts[1].trim());
                  LocalDateTime to = DateTimeUtility.parseDateTime(eventParts[2].trim());
-                 if (from == null || to == null) throw new WallException("Invalid date time format.");
+                 if (from == null || to == null) throw new WallException("Invalid date time format for event.");
                  Event event = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
                  taskList.addTask(event);
                  ui.printAddedTask(taskList, event);
