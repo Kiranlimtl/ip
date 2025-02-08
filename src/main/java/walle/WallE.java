@@ -3,16 +3,12 @@ package walle;
 import walle.commands.Command;
 import walle.storage.Storage;
 import walle.tasks.TaskList;
-import walle.tasks.Task;
-import walle.exceptions.WallException;
 import walle.exceptions.CorruptedDataException;
 import walle.ui.Ui;
 import walle.parsers.Parser;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
-import java.time.LocalDateTime;
+
 
 public class WallE {
     private Ui ui;
@@ -38,14 +34,15 @@ public class WallE {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(taskList, ui, storage);
+                isExit = command.isExit();
             } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
         }
     }
+    
     public static void main(String[] args) {
         new WallE("./data/walle.txt").run();
     }
