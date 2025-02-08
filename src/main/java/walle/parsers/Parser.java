@@ -4,6 +4,7 @@ import walle.commands.AddCommand;
 import walle.commands.ByeCommand;
 import walle.commands.Command;
 import walle.commands.DeleteCommand;
+import walle.commands.FindCommand;
 import walle.commands.ListCommand;
 import walle.commands.MarkCommand;
 import walle.commands.UnmarkCommand;
@@ -57,6 +58,9 @@ public class Parser {
 
         case "bye":
             return new ByeCommand();
+            
+        case "find":
+            return new FindCommand(arguments);
 
         default:
             throw new WallException("I'm sorry, I don't understand that command.");

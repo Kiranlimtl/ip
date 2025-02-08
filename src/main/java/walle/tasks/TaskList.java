@@ -1,5 +1,7 @@
 package walle.tasks;
 
+import walle.exceptions.WallException;
+
 import java.util.ArrayList;
 
 /**
@@ -35,8 +37,12 @@ public class TaskList {
      *
      * @param index
      */
-    public void deleteTask(int index) {
-        tasks.remove(index);
+    public void deleteTask(int index) throws WallException {
+        try {
+            tasks.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WallException("I can't delete something that doesn't exist.");
+        }
     }
 
     /**
@@ -44,8 +50,12 @@ public class TaskList {
      *
      * @param index
      */
-    public void markTask(int index) {
-        tasks.get(index).markAsDone();
+    public void markTask(int index) throws WallException {
+        try {
+            tasks.get(index).markAsDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new WallException("I can't mark something that doesn't exist.");
+        }
     }
 
     /**
@@ -53,8 +63,12 @@ public class TaskList {
      *
      * @param index
      */
-    public void unmarkTask(int index) {
-        tasks.get(index).unmarkAsNotDone();
+    public void unmarkTask(int index) throws WallException {
+        try {
+            tasks.get(index).unmarkAsNotDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new WallException("I can't unmark something that doesn't exist.");
+        }
     }
 
     /**
@@ -65,9 +79,29 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+    
+    /**
+     * Finds tasks with a keyword
+     *
+     * @param keyword
+     * @return
+     */
+    public TaskList findTasks(String keyword) {
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                foundTasks.add(task);
+            }
+        }
+        return new TaskList(foundTasks);
+    }
 
-    public Task getTask(int index) {
-        return tasks.get(index);
+    public Task getTask(int index) throws WallException {
+        try {
+            return tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new WallException("I can't get something that doesn't exist.");
+        }
     }
 
     public int getSize() {
