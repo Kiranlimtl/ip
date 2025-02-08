@@ -23,12 +23,12 @@ public class MarkCommand extends Command {
     /**
      * Marks a task as done
      *
-     * @param tasks
+     * @param taskList
      * @param ui
      * @param storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException {       
         taskList.markTask(index);
         ui.printMarkTask(taskList, index);
         try {

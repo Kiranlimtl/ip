@@ -23,12 +23,12 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks a task as done
      *
-     * @param tasks
+     * @param taskList
      * @param ui
      * @param storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException {
         taskList.unmarkTask(index);
         ui.printUnmarkTask(taskList, index);
         try {

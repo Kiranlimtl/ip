@@ -2,6 +2,7 @@ package walle.ui;
 
 import walle.tasks.Task;
 import walle.tasks.TaskList;
+import walle.exceptions.WallException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -51,21 +52,29 @@ public class Ui {
         printWithLine("Now you have " + taskList.getSize() + " tasks in the list.");
     }
 
-    public void printMarkTask(TaskList taskList, int index) {
+    public void printMarkTask(TaskList taskList, int index) throws WallException{
         System.out.println("\tNice! I've marked this task as done:");
         printWithLine(taskList.getTask(index).toString());
     }
 
-    public void printUnmarkTask(TaskList taskList, int index) {
+    public void printUnmarkTask(TaskList taskList, int index) throws WallException {
         System.out.println("\tOK, I've marked this task as not done yet:");
         printWithLine(taskList.getTask(index).toString());;
     }
 
-    public void printDeleteTask(TaskList taskList, Task task, int index) {
+    public void printDeleteTask(TaskList taskList, Task task, int index) throws WallException {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t" + task.toString());
         taskList.deleteTask(index);
         printWithLine("Now you have " + taskList.getTasks().size() + " in the list");
+    }
+    
+    public void printFoundTasks(TaskList taskList) {
+        System.out.println("\tHere are the matching tasks in your list:");
+        for (Task tasks : taskList.getTasks()) {
+            System.out.println("\t" + tasks.toString());
+        }
+        printHorizontalLine();
     }
 
     public void printHorizontalLine(){

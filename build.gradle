@@ -5,7 +5,7 @@ plugins {
 }
 
 repositories {
-    mavenCentral("walle.WallE")
+    mavenCentral()
 }
 
 dependencies {
@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("walle.WallE")
 }
 
 shadowJar {
