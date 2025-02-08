@@ -24,8 +24,8 @@ public class DateTimeUtility {
 
     /**
      * Parses a date-time string using multiple allowed formats.
-     * @param dateTimeString The date-time string to parse.
-     * @return Parsed LocalDateTime object or null if parsing fails.
+     * @param dateTime The date-time string to parse.
+     * @return Parsed LocalDateTime object or null if parsing fails.e
      */
     public static LocalDateTime parseDateTime(String dateTime) {
         for (String format : DATE_TIME_FORMATS) {

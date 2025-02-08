@@ -2,12 +2,13 @@ package walle.commands;
 
 import walle.storage.Storage;
 import walle.tasks.TaskList;
-import walle.tasks.Task;
-import walle.exceptions.WallException;
 import walle.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
@@ -23,7 +24,7 @@ public class MarkCommand extends Command {
     /**
      * Marks a task as done
      *
-     * @param tasks
+     * @param taskList
      * @param ui
      * @param storage
      */

@@ -2,7 +2,6 @@ package walle.tasks;
 
 import walle.parsers.DateTimeUtility;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 /**
  * Event class, subclass of Task

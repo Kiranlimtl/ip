@@ -16,15 +16,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class to read and write the ArrayList from/to a seperate file
+ * Class to read and write the ArrayList from or to a seperate file
  */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage
+     * @param filePath the path of the file to read and write
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the tasks from the file
+     * @return the TaskList object
+     * @throws CorruptedDataException if the data in the file is corrupted
+     * @throws IOException if there is an error reading the file
+     */
     public TaskList loadTasks() throws CorruptedDataException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -47,6 +57,11 @@ public class Storage {
         return new TaskList(tasks);
     }
 
+    /**
+     * Save the tasks to the file
+     * @param taskList the TaskList object to save
+     * @throws IOException if there is an error writing to the file
+     */
     public void saveTasks(TaskList taskList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         ArrayList<Task> tasks = taskList.getTasks();

@@ -2,12 +2,13 @@ package walle.commands;
 
 import walle.storage.Storage;
 import walle.tasks.TaskList;
-import walle.tasks.Task;
-import walle.exceptions.WallException;
 import walle.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a command to unmark a task as done
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
@@ -23,7 +24,7 @@ public class UnmarkCommand extends Command {
     /**
      * Unmarks a task as done
      *
-     * @param tasks
+     * @param taskList
      * @param ui
      * @param storage
      */
