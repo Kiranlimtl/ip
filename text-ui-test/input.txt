@@ -1,4 +1,3 @@
-todo sex
 list
 mark 1
 unmark 1
