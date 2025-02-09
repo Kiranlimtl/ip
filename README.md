@@ -17,7 +17,7 @@ And the best part, WallE is **Free!**
 
 ---
 
-###Features:
+##Features:
 - [x] Task managment
 - [ ] Custom reminders (coming soon)
 
