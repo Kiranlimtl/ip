@@ -4,6 +4,7 @@ import walle.storage.Storage;
 import walle.tasks.TaskList;
 import walle.tasks.Task;
 import walle.ui.Ui;
+import walle.exceptions.WallException;
 
 /**
  * Represents a delete command

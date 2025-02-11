@@ -3,6 +3,7 @@ package walle.commands;
 import walle.storage.Storage;
 import walle.tasks.TaskList;
 import walle.ui.Ui;
+import walle.exceptions.WallException;
 
 import java.io.IOException;
 
