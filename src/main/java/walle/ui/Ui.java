@@ -1,12 +1,15 @@
 package walle.ui;
 
+import walle.exceptions.WallException;
 import walle.tasks.Task;
 import walle.tasks.TaskList;
-import walle.exceptions.WallException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents the user interface of WallE.
+ */
 public class Ui {
     private final Scanner scanner;
 
@@ -17,7 +20,10 @@ public class Ui {
     public String readCommand() {
         return scanner.nextLine();
     }
-
+    
+    /**
+     * Prints the welcome message.
+     */
     public void showWelcome() {
         printWithLine("Hello! I'm WallE.\n" +
                 "\tWhat can I do for you?");
@@ -65,8 +71,8 @@ public class Ui {
     public void printDeleteTask(TaskList taskList, Task task, int index) throws WallException {
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t" + task.toString());
-        taskList.deleteTask(index);
-        printWithLine("Now you have " + taskList.getTasks().size() + " in the list");
+        int act_size = taskList.getSize() - 1;
+        printWithLine("Now you have " + act_size + " in the list");
     }
     
     public void printFoundTasks(TaskList taskList) {
@@ -76,7 +82,10 @@ public class Ui {
         }
         printHorizontalLine();
     }
-
+    /**
+     * Prints the horizontal line
+     */
+    @SuppressWarnings("checkstyle:Indentation")
     public void printHorizontalLine(){
         System.out.println("\t--------------------------------------------------");
     }
