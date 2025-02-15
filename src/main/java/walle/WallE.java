@@ -11,13 +11,14 @@ import java.io.IOException;
 
 
 public class WallE {
+    private static final String FILE_PATH = "./data/walle.txt";
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
-    public WallE(String filePath) {
+    public WallE() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             taskList = storage.loadTasks();
         } catch (CorruptedDataException e) {
@@ -43,9 +44,13 @@ public class WallE {
         }
     }
     
-    public static void main(String[] args) {
-        new WallE("./data/walle.txt").run();
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(taskList, ui, storage);
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
-
 }
 

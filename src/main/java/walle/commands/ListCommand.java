@@ -15,7 +15,7 @@ public class ListCommand extends Command {
      * @param ui The user interface to print messages.
      * @param storage The storage to save the task list to.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.printTasks(taskList);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.printTasks(taskList);
     }
 }

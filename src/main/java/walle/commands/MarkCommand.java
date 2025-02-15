@@ -30,13 +30,13 @@ public class MarkCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException {       
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException {       
         taskList.markTask(index);
-        ui.printMarkTask(taskList, index);
         try {
             storage.saveTasks(taskList);
         } catch (IOException e) {
             ui.showError("I/O error: " + e.getMessage());
         }
+        return ui.printMarkTask(taskList, index);
     }
 }

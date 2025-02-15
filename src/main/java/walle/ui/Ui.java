@@ -24,76 +24,86 @@ public class Ui {
     /**
      * Prints the welcome message.
      */
-    public void showWelcome() {
-        printWithLine("Hello! I'm WallE.\n" +
-                "\tWhat can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm WallE.\n" + "\tWhat can I do for you?";
     }
 
-    public void showGoodbye() {
-        printWithLine("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void showError(String message) {
-        printWithLine(message);
+    public String showError(String message) {
+        return message;
     }
 
-    public void printTasks(TaskList taskList) {
+    public String printTasks(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
+        String all_task = "";
         if (tasks.size() == 0) {
-            printWithLine("No tasks found");
+            return ("No tasks found");
         } else {
-            System.out.println("\tHere are the tasks in your list:");
+            all_task += "\tHere are the tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + "." + tasks.get(i).toString());
+                all_task += "\n" + "\t" + (i + 1) + "." + tasks.get(i).toString();
             }
-            System.out.println();
-            printHorizontalLine();
+            all_task += "\n";
+            all_task += printHorizontalLine();
+            return all_task;
         }
 
     }
 
-    public void printAddedTask(TaskList taskList, Task task) {
-        System.out.println("\tGot it. I've added this task:");
-        System.out.println("\t" + task.toString());
-        printWithLine("Now you have " + taskList.getSize() + " tasks in the list.");
+    public String printAddedTask(TaskList taskList, Task task) {
+        String addedTask = "Got it. I've added this task:";
+        addedTask += "\n" + "\t" + task.toString();
+        addedTask += ("\nNow you have " + taskList.getSize() + " tasks in the list.");
+        return addedTask;
     }
 
-    public void printMarkTask(TaskList taskList, int index) throws WallException{
-        System.out.println("\tNice! I've marked this task as done:");
-        printWithLine(taskList.getTask(index).toString());
+    public String printMarkTask(TaskList taskList, int index) throws WallException {
+        String markedTask = "\tNice! I've marked this task as done:";
+        markedTask += "\n" + printWithLine(taskList.getTask(index).toString());
+        return markedTask;
     }
 
-    public void printUnmarkTask(TaskList taskList, int index) throws WallException {
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        printWithLine(taskList.getTask(index).toString());;
+    public String printUnmarkTask(TaskList taskList, int index) throws WallException {
+        String unmarkedTask = "\tNice! I've unmarked this task:";
+        unmarkedTask += "\n" + printWithLine(taskList.getTask(index).toString());
+        return unmarkedTask;
     }
 
-    public void printDeleteTask(TaskList taskList, Task task, int index) throws WallException {
-        System.out.println("\tNoted. I've removed this task:");
-        System.out.println("\t" + task.toString());
+    public String printDeleteTask(TaskList taskList, Task task) {
+        String deleteTask = ("\tNoted. I've removed this task:");
+        deleteTask += "\n" + "\t" + task.toString();
         int act_size = taskList.getSize() - 1;
-        printWithLine("Now you have " + act_size + " in the list");
+        deleteTask += "\n" + "Now you have " + act_size + " in the list";
+        return deleteTask;
     }
     
-    public void printFoundTasks(TaskList taskList) {
-        System.out.println("\tHere are the matching tasks in your list:");
-        for (Task tasks : taskList.getTasks()) {
-            System.out.println("\t" + tasks.toString());
+    public String printFoundTasks(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            return "\tNo tasks found" + "\n" + printHorizontalLine();
         }
-        printHorizontalLine();
+        String foundTask = ("\tHere are the matching tasks in your list:");
+        for (Task tasks : taskList.getTasks()) {
+            foundTask += "\n" + "\t" + tasks.toString();
+        }
+        foundTask += "\n" + printHorizontalLine();
+        return foundTask;
     }
     /**
      * Prints the horizontal line
      */
     @SuppressWarnings("checkstyle:Indentation")
-    public void printHorizontalLine(){
-        System.out.println("\t--------------------------------------------------");
+    public String printHorizontalLine() {
+        return "\t--------------------------------------------------";
     }
 
-    public void printWithLine(String input){
-        System.out.println("\t" + input);
-        System.out.println();
-        printHorizontalLine();
+    public String printWithLine(String input) {
+        String string = "\t" + input;
+        string += "\n";
+        string += printHorizontalLine();
+        return string;
     }
 
     public void close() {
