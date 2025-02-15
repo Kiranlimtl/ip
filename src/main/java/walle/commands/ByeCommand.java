@@ -2,8 +2,6 @@ package walle.commands;
 
 import walle.storage.Storage;
 import walle.tasks.TaskList;
-import walle.tasks.Task;
-import walle.exceptions.WallException;
 import walle.ui.Ui;
 
 /**
@@ -18,8 +16,8 @@ public class ByeCommand extends Command {
      * @param ui The user interface.
      * @param storage The storage.
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

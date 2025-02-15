@@ -28,7 +28,6 @@ public class AddCommand extends Command {
          this.argument = argument;
          this.taskType = taskType;
      }
-
      /**
       * Executes the add command.
       *
@@ -38,15 +37,15 @@ public class AddCommand extends Command {
       * @throws WallException If the task type is invalid or the argument is invalid.
       * @throws IOException If there is an error saving the task list.
       */
-     public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
+     public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
+         String fail = "Failed to add task.";
          switch (taskType.toLowerCase()) {
          case "todo":
              if (argument.length() <= 0) throw new WallException("Todo what?");
              ToDo todo = new ToDo(argument.trim());
              taskList.addTask(todo);
-             ui.printAddedTask(taskList, todo);
              storage.saveTasks(taskList);
-             break;
+             return ui.printAddedTask(taskList, todo);
          case "deadline":
              if (argument.length() <= 0) throw new WallException("Deadline? Cmon.");
              String[] deadlineParts = argument.split(" /by ");
@@ -55,9 +54,8 @@ public class AddCommand extends Command {
              if (by == null) throw new WallException("Invalid date time format.");
              Deadline deadline = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
              taskList.addTask(deadline);
-             ui.printAddedTask(taskList, deadline);
              storage.saveTasks(taskList);
-             break;
+             return ui.printAddedTask(taskList, deadline);
          case "event":
              if (argument.length() <= 0) throw new WallException("Event? Pls?");
              String[] eventParts = argument.split(" /from | /to ");
@@ -67,11 +65,10 @@ public class AddCommand extends Command {
              if (from == null || to == null) throw new WallException("Invalid date time format for event.");
              Event event = new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
              taskList.addTask(event);
-             ui.printAddedTask(taskList, event);
              storage.saveTasks(taskList);
-             break;
+             return ui.printAddedTask(taskList, event);
          default:
-             break;
+             return fail;
          }
      }
  }

@@ -31,14 +31,18 @@ public class DeleteCommand extends Command {
      * @param storage
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
         if (index < 0 || index >= taskList.getSize()) {
-            ui.showError("Invalid task number");
-            return;
+            return ui.showError("Invalid task number");
         }
         Task task = taskList.getTasks().get(index);
-        ui.printDeleteTask(taskList, task, index);
+        String temp = ui.printDeleteTask(taskList, task);
         taskList.deleteTask(index);
-        storage.saveTasks(taskList);
+        try {
+            storage.saveTasks(taskList);
+        } catch (IOException e) {
+            ui.showError("I/O error: " + e.getMessage());
+        }
+        return temp;
     }
 }
