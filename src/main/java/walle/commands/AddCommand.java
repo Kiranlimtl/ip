@@ -41,7 +41,6 @@ public class AddCommand extends Command {
       */
      public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
          assert taskType.equalsIgnoreCase("todo") || taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event") : "Invalid task type: " + taskType;
-         String fail = "Failed to add task.";
          switch (taskType.toLowerCase()) {
          case "todo":
              if (argument.length() <= 0) throw new WallException("Todo what?");
