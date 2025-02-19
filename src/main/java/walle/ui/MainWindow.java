@@ -31,11 +31,21 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-    
+    /**
+     * Sets WallE for the controller.
+     * @param wallE WallE object to be set.
+     */
     public void setWallE(WallE wallE) {
         this.wallE = wallE;
     }
-
+    /**
+     * Shows a message in the dialog container.
+     * @param message The message to be shown.
+     */
+    @FXML
+    public void showMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getWallEDialog(message, wallEmage));
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -46,8 +56,12 @@ public class MainWindow extends AnchorPane {
         String response = wallE.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, wallEmage)
+                DialogBox.getWallEDialog(response, wallEmage)
         );
         userInput.clear();
+        if (wallE.isExitCommand(input)) {
+            System.exit(0);
+        }
     }
 }
+

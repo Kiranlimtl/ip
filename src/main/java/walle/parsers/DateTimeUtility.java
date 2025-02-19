@@ -20,6 +20,8 @@ public class DateTimeUtility {
         DATE_TIME_FORMATS.add("d-M-yyyy HH:mm");
         DATE_TIME_FORMATS.add("d-M-yyyy HH");
         DATE_TIME_FORMATS.add("yyyy-MM-dd HH:mm");
+        DATE_TIME_FORMATS.add("yyyy-MM-dd'T'HH:mm");
+        DATE_TIME_FORMATS.add("yyyy-MM-dd'T'HH:mm:ss");
     }
 
     /**

@@ -98,15 +98,12 @@ public class Storage {
             }
             return deadline;
         case "E":
-            if (parts.length > 4) {
+            if (parts.length > 5) {
                 throw new CorruptedDataException("Event wrong");
             }
-            String[] eventParts = parts[3].split("-", 2);
-            if (eventParts.length != 2) {
-                throw new IllegalArgumentException("Invalid event format in file.");
-            }
-            Event event = new Event(description, eventParts[0].trim(), eventParts[1].trim());
-
+            System.out.println(parts[3]);
+            System.out.println(parts[4]);
+            Event event = new Event(description, parts[3].trim(), parts[4].trim());
             if (isDone == true) {
                 event.markAsDone();
             }
@@ -117,7 +114,7 @@ public class Storage {
     }
 
     private void validateTaskData(String[] parts) throws CorruptedDataException {
-        if (parts.length > 4) {
+        if (parts.length > 5) {
             throw new CorruptedDataException("Too many '|' in line.");
         }
         if (!parts[0].equals("T") && !parts[0].equals("D") && !parts[0].equals("E")) {
@@ -139,7 +136,7 @@ public class Storage {
         } else if (task instanceof Event) {
             Event event = (Event) task;
             sb.append("E | ").append(event.isDone() ? "1" : "0").append(" | ").append(event.getDescription())
-                    .append(" | ").append(event.getFrom()).append("-").append(event.getTo());
+                    .append(" | ").append(event.getFrom()).append(" | ").append(event.getTo());
         }
         return sb.toString();
     }
