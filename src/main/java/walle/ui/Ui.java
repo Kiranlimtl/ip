@@ -54,7 +54,7 @@ public class Ui {
         } else {
             all_task += "\tHere are the tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                all_task += "\n" + "\t" + (i + 1) + "." + tasks.get(i).toString();
+                all_task += "\n" + "\t" + (i + 1) + ". " + tasks.get(i).toString();
             }
             all_task += "\n";
             all_task += printHorizontalLine();
@@ -81,7 +81,7 @@ public class Ui {
      * @param index The index of the task to mark
      */
     public String printMarkTask(TaskList taskList, int index) throws WallException {
-        String markedTask = "\tNice! I've marked this task as done:";
+        String markedTask = "Nice! I've marked this task as done:";
         markedTask += "\n" + printWithLine(taskList.getTask(index).toString());
         return markedTask;
     }
@@ -92,7 +92,7 @@ public class Ui {
      * @param index The index of the task to unmark
      */
     public String printUnmarkTask(TaskList taskList, int index) throws WallException {
-        String unmarkedTask = "\tNice! I've unmarked this task:";
+        String unmarkedTask = "Nice! I've unmarked this task:";
         unmarkedTask += "\n" + printWithLine(taskList.getTask(index).toString());
         return unmarkedTask;
     }
@@ -103,7 +103,7 @@ public class Ui {
      * @param task The task to delete
      */
     public String printDeleteTask(TaskList taskList, Task task) {
-        String deleteTask = ("\tNoted. I've removed this task:");
+        String deleteTask = ("Noted. I've removed this task:");
         deleteTask += "\n" + "\t" + task.toString();
         int act_size = taskList.getSize() - 1;
         deleteTask += "\n" + "Now you have " + act_size + " in the list";
@@ -116,7 +116,7 @@ public class Ui {
      */
     public String printFoundTasks(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            return "\tNo tasks found" + "\n" + printHorizontalLine();
+            return "No tasks found" + "\n" + printHorizontalLine();
         }
         String foundTask = ("\tHere are the matching tasks in your list:");
         for (Task tasks : taskList.getTasks()) {
@@ -143,7 +143,17 @@ public class Ui {
         string += printHorizontalLine();
         return string;
     }
-
+    /**
+     * Prints the reminders
+     *
+     * @param taskList The list of tasks
+     */
+    public String printReminders(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            return printWithLine("No upcoming deadlines or events");
+        }
+        return "Here are the tasks due today" + "\n" + printTasks(taskList);
+    }
     public void close() {
         scanner.close();
     }
