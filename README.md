@@ -25,9 +25,9 @@ And the best part, WallE is **Free!**
 For Java programmers, here’s a snippet of the main entry point:
 
 ```java
-public class TaskMate {
+public class Launcher {
     public static void main(String[] args) {
-        Application.launch(TaskApp.class, args);
+        Application.launch(Main.class, args);
     }
 }
 
