@@ -1,12 +1,11 @@
 package walle.commands;
 
+import java.io.IOException;
+
+import walle.exceptions.WallException;
 import walle.storage.Storage;
 import walle.tasks.TaskList;
 import walle.ui.Ui;
-import walle.exceptions.WallException;
-
-import java.io.IOException;
-
 /**
  * Represents a command to mark a task as done.
  */

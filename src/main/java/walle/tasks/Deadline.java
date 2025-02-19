@@ -1,10 +1,8 @@
 package walle.tasks;
 
-import walle.parsers.DateTimeUtility;
-
 import java.time.LocalDateTime;
 
-
+import walle.parsers.DateTimeUtility;
 /**
  * Deadline class, subclass of Task
  */

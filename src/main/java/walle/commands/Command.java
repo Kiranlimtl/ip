@@ -1,12 +1,11 @@
 package walle.commands;
 
-import walle.storage.Storage;
-import walle.tasks.TaskList;
-import walle.exceptions.WallException;
-import walle.ui.Ui;
-
 import java.io.IOException;
 
+import walle.exceptions.WallException;
+import walle.storage.Storage;
+import walle.tasks.TaskList;
+import walle.ui.Ui;
 /**
  * Represents a command that can be executed by the user.
  */

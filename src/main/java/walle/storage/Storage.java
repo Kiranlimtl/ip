@@ -1,20 +1,19 @@
 package walle.storage;
 
-import walle.tasks.Task;
-import walle.tasks.TaskList;
-import walle.tasks.ToDo;
-import walle.tasks.Deadline;
-import walle.tasks.Event;
-import walle.exceptions.CorruptedDataException;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import walle.exceptions.CorruptedDataException;
+import walle.tasks.Deadline;
+import walle.tasks.Event;
+import walle.tasks.Task;
+import walle.tasks.TaskList;
+import walle.tasks.ToDo;
 /**
  * Class to read and write the ArrayList from or to a seperate file
  */
@@ -42,16 +41,16 @@ public class Storage {
         if (!file.exists()) {
             File parentDir = file.getParentFile();
             if (parentDir != null) {
-                parentDir.mkdirs();  // Create parent directories if needed
+                parentDir.mkdirs();
             }
-            file.createNewFile();  // Create the file
+            file.createNewFile();
             return new TaskList(tasks);
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
-                tasks.add(parseTask(line));
+            tasks.add(parseTask(line));
         }
         reader.close();
         return new TaskList(tasks);
@@ -74,23 +73,10 @@ public class Storage {
 
     private Task parseTask(String line) throws CorruptedDataException {
         String[] parts = line.split(" \\| ");
-        if (parts.length > 4) {
-            throw new CorruptedDataException("too many  | | | | ");
-        }
+        validateTaskData(parts);
         String type = parts[0];
-        boolean isDone;
-        if (!type.equals("T") && !type.equals("D") && !type.equals("E")) {
-            throw new CorruptedDataException("Task type not known");
-        }
-        try {
-            isDone = parts[1].equals("1");
-        } catch (Exception e) {
-            throw new CorruptedDataException("Why number so weird");
-        }
+        boolean isDone = parts[1].equals("1");
         String description = parts[2];
-        if (description.isEmpty()) {
-            throw new CorruptedDataException("Your old task got no description");
-        }
 
         switch (type) {
         case "T":
@@ -119,7 +105,7 @@ public class Storage {
             if (eventParts.length != 2) {
                 throw new IllegalArgumentException("Invalid event format in file.");
             }
-            Event event  = new Event(description, eventParts[0].trim(), eventParts[1].trim());
+            Event event = new Event(description, eventParts[0].trim(), eventParts[1].trim());
 
             if (isDone == true) {
                 event.markAsDone();
@@ -127,6 +113,18 @@ public class Storage {
             return event;
         default:
             throw new IllegalArgumentException("Unknown task type in file");
+        }
+    }
+
+    private void validateTaskData(String[] parts) throws CorruptedDataException {
+        if (parts.length > 4) {
+            throw new CorruptedDataException("Too many '|' in line.");
+        }
+        if (!parts[0].equals("T") && !parts[0].equals("D") && !parts[0].equals("E")) {
+            throw new CorruptedDataException("Unknown task type.");
+        }
+        if (parts[2].isEmpty()) {
+            throw new CorruptedDataException("Task description is missing.");
         }
     }
 
@@ -145,5 +143,4 @@ public class Storage {
         }
         return sb.toString();
     }
-
 }

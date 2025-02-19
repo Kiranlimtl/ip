@@ -1,9 +1,8 @@
 package walle.tasks;
 
-import walle.exceptions.WallException;
-
 import java.util.ArrayList;
 
+import walle.exceptions.WallException;
 /**
  * TaskList class, to handle operations on tasks
  */
@@ -31,7 +30,7 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
     }
-
+    
     /**
      * Deletes a task from the task list
      *

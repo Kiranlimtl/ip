@@ -9,7 +9,9 @@ import walle.commands.ListCommand;
 import walle.commands.MarkCommand;
 import walle.commands.UnmarkCommand;
 import walle.exceptions.WallException;
-
+/**
+ * Parses user input to create Command objects.
+ */
 public class Parser {
 
     /**
@@ -34,31 +36,24 @@ public class Parser {
                 throw new WallException("The description of a todo cannot be empty.");
             }
             return new AddCommand(arguments, "todo");
-
         case "deadline":
             if (arguments.isEmpty()) {
                 throw new WallException("The description of a deadline cannot be empty.");
             }
             return new AddCommand(arguments, "deadline");
-
         case "event":
             if (arguments.isEmpty()) {
                 throw new WallException("The description of an event cannot be empty.");
             }
             return new AddCommand(arguments, "event");
-
         case "mark":
             return new MarkCommand(parseTaskIndex(arguments));
-
         case "unmark":
             return new UnmarkCommand(parseTaskIndex(arguments));
-
         case "delete":
             return new DeleteCommand(parseTaskIndex(arguments));
-
         case "bye":
             return new ByeCommand();
-            
         case "find":
             return new FindCommand(arguments);
 
@@ -80,7 +75,7 @@ public class Parser {
             if (index <= 0) {
                 throw new WallException("Task number must be greater than zero.");
             }
-            return index - 1;  // Convert to zero-based index
+            return index - 1;
         } catch (NumberFormatException e) {
             throw new WallException("Invalid task number. Please enter a valid number.");
         }

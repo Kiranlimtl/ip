@@ -1,12 +1,12 @@
 package walle.commands;
 
-import walle.storage.Storage;
-import walle.tasks.TaskList;
-import walle.tasks.Task;
-import walle.ui.Ui;
-import walle.exceptions.WallException;
-
 import java.io.IOException;
+
+import walle.exceptions.WallException;
+import walle.storage.Storage;
+import walle.tasks.Task;
+import walle.tasks.TaskList;
+import walle.ui.Ui;
 
 /**
  * Represents a delete command
