@@ -25,6 +25,8 @@ public class AddCommand extends Command {
      * @param taskType
      */
      public AddCommand(String argument, String taskType) {
+         assert argument != null : "Argument cannot be null";
+         assert taskType != null : "Task type cannot be null";
          this.argument = argument;
          this.taskType = taskType;
      }
@@ -38,6 +40,7 @@ public class AddCommand extends Command {
       * @throws IOException If there is an error saving the task list.
       */
      public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
+         assert taskType.equalsIgnoreCase("todo") || taskType.equalsIgnoreCase("deadline") || taskType.equalsIgnoreCase("event") : "Invalid task type: " + taskType;
          String fail = "Failed to add task.";
          switch (taskType.toLowerCase()) {
          case "todo":

@@ -32,10 +32,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException, IOException {
+        assert taskList != null : "Task list cannot be null";
         if (index < 0 || index >= taskList.getSize()) {
             return ui.showError("Invalid task number");
         }
         Task task = taskList.getTasks().get(index);
+        assert task != null : "Task should not be null at index " + index;
         String temp = ui.printDeleteTask(taskList, task);
         taskList.deleteTask(index);
         try {
