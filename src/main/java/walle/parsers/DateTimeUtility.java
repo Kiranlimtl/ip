@@ -52,5 +52,4 @@ public class DateTimeUtility {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a");
         return dateTime.format(formatter);
     }
-
 }
