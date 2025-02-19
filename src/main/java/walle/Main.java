@@ -23,10 +23,19 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setWallE(wallE);
+            MainWindow controller = fxmlLoader.getController();
+            controller.setWallE(wallE);
+            showInitialMessages(controller);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showInitialMessages(MainWindow controller) {
+        String welcomeMessage = wallE.getWelcomeMessage();
+        String reminderMessage = wallE.getReminderMessage();
+        controller.showMessage(welcomeMessage);
+        controller.showMessage(reminderMessage);
     }
 }

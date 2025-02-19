@@ -3,6 +3,7 @@ package walle;
 import java.io.IOException;
 
 import walle.commands.Command;
+import walle.commands.ReminderCommand;
 import walle.exceptions.CorruptedDataException;
 import walle.parsers.Parser;
 import walle.storage.Storage;
@@ -32,24 +33,7 @@ public class WallE {
         }
     }
     /**
-     * Main method to run WallE
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(taskList, ui, storage);
-                isExit = command.isExit();
-            } catch (Exception e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-    /**
-     * Main method to run WallE
+     * Method to get response to show in Ui
      */
     public String getResponse(String input) {
         try {
@@ -57,6 +41,34 @@ public class WallE {
             return command.execute(taskList, ui, storage);
         } catch (Exception e) {
             return "Error: " + e.getMessage();
+        }
+    }
+    /**
+     * Method to get welcome message
+     */
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+    /**
+     * Method to get reminder message
+     */
+    public String getReminderMessage() {
+        Command reminder = new ReminderCommand();
+        try {
+            return reminder.execute(taskList, ui, storage);
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+    /**
+     * Method to check if the input is an exit command
+     */
+    public boolean isExitCommand(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.isExit();
+        } catch (Exception e) {
+            return false;
         }
     }
 }
