@@ -16,6 +16,6 @@ public class ListCommand extends Command {
      * @param storage The storage to save the task list to.
      */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.printTasks(taskList);
+        return ui.printListTasks(taskList);
     }
 }
