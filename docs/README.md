@@ -144,17 +144,17 @@ A: Delete the `data/walle.txt` file and restart WallE.
 
 ## Command Summary
 ```
-| Command                                        | Description                 |
-|------------------------------------------------|-----------------------------|
-| `todo [task]`                                  | Adds a ToDo task            |
-| `deadline [task] /by [dd-MM-yyyy HH:mm]`       | Adds a Deadline task        |
+| Command                                                        | Description                 |
+|----------------------------------------------------------------|-----------------------------|
+| `todo [task]`                                                  | Adds a ToDo task            |
+| `deadline [task] /by [dd-MM-yyyy HH:mm]`                       | Adds a Deadline task        |
 | `event [task] /from [dd-MM-yyyy HH:mm] /to [dd-MM-yyyy HH:mm]` | Adds an Event task |
-| `list`                                         | Lists all tasks             |
-| `mark [task number]`                           | Marks a task as done        |
-| `unmark [task number]`                         | Unmarks a completed task    |
-| `find [keyword]`                               | Finds tasks by keyword      |
-| `delete [task number]`                         | Deletes a task              |
-| `bye`                                          | Exits WallE                 |
+| `list`                                                         | Lists all tasks             |
+| `mark [task number]`                                           | Marks a task as done        |
+| `unmark [task number]`                                         | Unmarks a completed task    |
+| `find [keyword]`                                               | Finds tasks by keyword      |
+| `delete [task number]`                                         | Deletes a task              |
+| `bye`                                                          | Exits WallE                 |
 ```
 
 ---
