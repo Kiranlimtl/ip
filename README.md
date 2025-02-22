@@ -3,9 +3,9 @@
 > "WALL-E." - WallE
 
 **WallE** frees your mind of having to remember things you need to do. It's,
--**intuitive** and user friendly
--**lightweight** and fast
--designed for productivity enthusiasts
+- **intuitive** and user friendly
+- **lightweight** and fast
+- **designed** for productivity enthusiasts
 
 To get started:
 1. [Download WallE]
