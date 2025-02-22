@@ -19,7 +19,7 @@ And the best part, WallE is **Free!**
 
 ## Features:
 - [x] Task managment
-- [ ] Custom reminders (coming soon)
+- [x] Reminders
 
 ### Sample Code:
 For Java programmers, here’s a snippet of the main entry point:
