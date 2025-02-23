@@ -18,16 +18,24 @@ And the best part, WallE is **Free!**
 ---
 
 ## Features:
-- [x] Task managment
+- [x] Task management
 - [x] Reminders
+- [ ] Priority
 
 ### Sample Code:
-For Java programmers, here’s a snippet of the main entry point:
+For Java programmers, here’s a snippet of a task class:
 
 ```java
-public class Launcher {
-    public static void main(String[] args) {
-        Application.launch(Main.class, args);
+public class Task {
+    protected String description;
+    protected boolean isDone;
+
+    /**
+     * Constructor for Task class
+     * @param description
+     */
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
     }
-}
 
