@@ -30,7 +30,6 @@ public class TaskList {
     public void addTask(Task task) {
         tasks.add(task);
     }
-    
     /**
      * Deletes a task from the task list
      *
@@ -78,7 +77,6 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-    
     /**
      * Finds tasks with a keyword
      *
