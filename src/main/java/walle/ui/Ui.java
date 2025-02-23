@@ -59,14 +59,14 @@ public class Ui {
      */
     public String printListTasks(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
-        String all_task = "";
-        if (tasks.size() == 0) {
+        String allTask = "";
+        if (tasks.isEmpty()) {
             return ("No tasks found");
         } else {
-            all_task += "Here are the tasks in your list:";
-            all_task += printTasks(taskList);
+            allTask += "Here are the tasks in your list:";
+            allTask += printTasks(taskList);
         }
-        return all_task;
+        return allTask;
     }
     /**
      * Prints the added task
@@ -111,8 +111,8 @@ public class Ui {
     public String printDeleteTask(TaskList taskList, Task task) {
         String deleteTask = ("Noted. I've removed this task:");
         deleteTask += "\n \t" + task.toString();
-        int act_size = taskList.getSize() - 1;
-        deleteTask += "\n" + "Now you have " + act_size + " in the list";
+        int actSize = taskList.getSize() - 1;
+        deleteTask += "\n" + "Now you have " + actSize + " in the list";
         return deleteTask;
     }
     /**

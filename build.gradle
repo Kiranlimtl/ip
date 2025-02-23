@@ -28,8 +28,16 @@ application {
     mainClass.set("walle.Launcher")
 }
 
+sourceSets {
+    main {
+        resources.srcDirs = ["src/main/resources"]
+    }
+}
+
 shadowJar {
     archiveFileName = 'walle.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveClassifier = null
 }
 
 run{
@@ -58,10 +66,4 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
 }
