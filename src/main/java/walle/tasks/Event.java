@@ -48,7 +48,8 @@ public class Event extends Task {
         if (from == null || to == null) {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         } else {
-            return "[E]" + super.toString() + " (from: " + DateTimeUtility.formatDateTime(from) + " to: " + DateTimeUtility.formatDateTime(to) + ")";
+            return "[E]" + super.toString() + " (from: " + DateTimeUtility.formatDateTime(from)
+                    + " to: " + DateTimeUtility.formatDateTime(to) + ")";
         }
     }
 }

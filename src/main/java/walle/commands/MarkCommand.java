@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
      * @param storage
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException {       
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws WallException {
         taskList.markTask(index);
         try {
             storage.saveTasks(taskList);

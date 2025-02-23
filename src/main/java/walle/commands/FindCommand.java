@@ -9,7 +9,6 @@ import walle.ui.Ui;
  */
 public class FindCommand extends Command {
     private String keyword;
-    
     /**
      * Constructor for FindCommand class
      *
@@ -18,7 +17,6 @@ public class FindCommand extends Command {
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
-    
     /**
      * Finds tasks that contain the keyword
      *

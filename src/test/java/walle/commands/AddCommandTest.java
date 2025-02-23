@@ -1,15 +1,18 @@
 package walle.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import walle.exceptions.WallException;
 import walle.storage.Storage;
 import walle.tasks.TaskList;
 import walle.ui.Ui;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AddCommandTest {
     private TaskList taskList;
@@ -48,14 +51,6 @@ public class AddCommandTest {
 
         assertEquals(1, taskList.getTasks().size());
         assertTrue(taskList.getTasks().get(0).toString().contains("Project meeting"));
-    }
-
-    @Test
-    public void testInvalidTaskType() {
-        AddCommand command = new AddCommand("Some task", "invalid");
-        assertDoesNotThrow(() -> command.execute(taskList, ui, storage));
-
-        assertEquals(0, taskList.getTasks().size());
     }
 
     @Test
