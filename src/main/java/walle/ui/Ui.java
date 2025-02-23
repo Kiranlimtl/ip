@@ -17,10 +17,6 @@ public class Ui {
     public Ui() {
         scanner = new Scanner(System.in);
     }
-
-    public String readCommand() {
-        return scanner.nextLine();
-    }
     /**
      ** Prints the welcome message.
      */
@@ -48,13 +44,13 @@ public class Ui {
      */
     public String printTasks(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
-        String all_task = "";
+        String allTask = "";
         for (int i = 0; i < taskList.getSize(); i++) {
-            all_task += "\n" + "\t" + (i + 1) + ". " + tasks.get(i).toString();
+            allTask += "\n" + "\t" + (i + 1) + ". " + tasks.get(i).toString();
         }
-        all_task += "\n";
-        all_task += printHorizontalLine();
-        return all_task;
+        allTask += "\n";
+        allTask += printHorizontalLine();
+        return allTask;
     }
     /**
      * Prints the task when ListCommand is executed
